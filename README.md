@@ -1,6 +1,6 @@
-# riscv32im Toolchain
+# riscv32im and riscv64im Toolchain
 
-The toolchain produced by this repository is meant for a RISC-V 32-bit ISA with the core integer and multiplication extension.
+The toolchain produced by this repository is meant for a RISC-V 32-bit/64-bit ISA with the core integer and multiplication extension.
 
 ## Prerequisites
 
@@ -26,8 +26,13 @@ sudo apt-get install autoconf automake autotools-dev curl python3 python3-pip li
 
 `HOST` can be one of:
 * riscv32im-linux-x86_64
+* riscv32im-linux-arm64
 * riscv32im-osx-arm64
 * riscv32im-osx-x86_64
+* riscv64im-linux-x86_64
+* riscv64im-linux-arm64
+* riscv64im-osx-arm64
+* riscv64im-osx-x86_64
 
 A final tarball lands in `.dist/$HOST`. For example:
 
