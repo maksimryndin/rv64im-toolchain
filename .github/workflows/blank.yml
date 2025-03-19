@@ -49,7 +49,7 @@ jobs:
 
         - name: init
           run: |
-              echo uname -a
+              uname -a
               mkdir -p /tmp/hey
               echo "I am host> ${{ matrix.host }} and I have arch ${{ matrix.arch }} " > /tmp/hey/${{ matrix.host }}.txt
         
