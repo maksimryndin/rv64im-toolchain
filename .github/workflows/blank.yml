@@ -7,29 +7,30 @@ on:
 
 jobs:  
   build:
-    runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          include:
+              - host: riscv32im-linux-x86_64
+                runs-on: ubuntu-22.04
+                arch: x86_64
+  
+              - host: riscv32im-linux-arm64
+                runs-on: ubuntu-22.04
+                arch: arm64
 
-    steps:      
-      - uses: actions/checkout@v4
+      runs-on: ${{ matrix.runs-on }}
 
-      - name: init
-        run: |
-            echo Hey Man!
-            mkdir -p /tmp/hey
-            echo "Hey from the temp dir" > /tmp/hey/hey.txt
-    
-      - name: another_init
-        run: |
-            echo Another
-            echo "Another file" > /tmp/hey/another.txt
-    
-      - name: Yet_another_init
-        run: |
-            echo Yet Another
-            echo "Yet Another file" > /tmp/hey/yet_another.txt
-      
-      - name: Upload a file
-        uses: actions/upload-artifact@v4
-        with:
-            name: My artifact
-            path: /tmp/hey/
+      steps:      
+        - uses: actions/checkout@v4
+
+        - name: init
+          run: |
+              echo Hey Man!
+              mkdir -p /tmp/hey
+              echo "I am host> ${{ matrix.host }} and I have arch ${{ matrix.arch }} " > /tmp/hey/${{ matrix.host }}.txt
+        
+        - name: Upload a file
+          uses: actions/upload-artifact@v4
+          with:
+              name: ${{ matrix.host }}.txt
+              path: /tmp/hey/${{ matrix.host }}.txt
