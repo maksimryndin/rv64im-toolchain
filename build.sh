@@ -29,3 +29,5 @@ pushd .dist
 tar cvJf $HOST.tar.xz $HOST
 
 popd
+
+echo "Done"
