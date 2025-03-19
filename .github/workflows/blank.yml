@@ -1,8 +1,9 @@
 name: CI
 
-on:  
-  push:
-    branches: [ "bro" ]
+on:
+    push:
+      tags:
+        - 'v*'
 
 jobs:  
   build:
@@ -16,9 +17,19 @@ jobs:
             echo Hey Man!
             mkdir -p /tmp/hey
             echo "Hey from the temp dir" > /tmp/hey/hey.txt
+    
+      - name: another_init
+        run: |
+            echo Another
+            echo "Another file" > /tmp/hey/another.txt
+    
+      - name: Yet_another_init
+        run: |
+            echo Yet Another
+            echo "Yet Another file" > /tmp/hey/yet_another.txt
       
       - name: Upload a file
         uses: actions/upload-artifact@v4
         with:
-            name: my-artifact
-            path: /tmp/hey/hey.txt
+            name: My artifact
+            path: /tmp/hey/
