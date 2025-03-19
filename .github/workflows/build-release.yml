@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  release:
+    types: [ "published" ]
 
 jobs:
   build:
@@ -42,12 +44,12 @@ jobs:
             - host: riscv64im-osx-x86_64
               runs-on: macos-13
               arch: x86_64
-              
+
     runs-on: ${{ matrix.runs-on }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up environment (Linux)
         if: runner.os == 'Linux'
@@ -62,6 +64,7 @@ jobs:
 
       - name: Build
         run: |
+          git submodule update --init
           mkdir -p .dist
           ./build.sh ${{ matrix.host }}
 
