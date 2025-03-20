@@ -19,7 +19,7 @@ fi
 pushd riscv-gnu-toolchain
 
 echo "building toolchain for host: $HOST, arch: $ARCH, abi: $ABI"
-./configure --prefix=$PREFIX --with-cmodel=medany --disable-gcc-checking --disable-gdb --with-arch=$ARCH --with-abi=$ABI
+./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI
 make -j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)
 
 popd
