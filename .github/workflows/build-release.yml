@@ -26,19 +26,19 @@ jobs:
           #   runs-on: macos-14
           #   arch: arm64
 
-          - host: riscv64im-linux-x86_64
+          - host: riscv64ima-linux-x86_64
             runs-on: ubuntu-22.04
             arch: x64
 
-          - host: riscv64im-linux-arm64
+          - host: riscv64ima-linux-arm64
             runs-on: ubuntu-22.04-arm
             arch: arm64
 
-          # - host: riscv64im-osx-x86_64
+          # - host: riscv64ima-osx-x86_64
           #   runs-on: macos-13
           #   arch: Intel
 
-          # - host: riscv64im-osx-arm64
+          # - host: riscv64ima-osx-arm64
           #   runs-on: macos-14
           #   arch: arm64
 
