@@ -16,11 +16,19 @@ else
   exit 1
 fi
 
+sed_arch() {
+  if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # set up the gnu toolchain
 git clone https://github.com/riscv-collab/riscv-gnu-toolchain
 cd riscv-gnu-toolchain
-sed -i '/shallow = true/d' .gitmodules
-sed -i 's/--depth 1//g' Makefile.in
+sed_arch -i '/shallow = true/d' .gitmodules
+sed_arch -i 's/--depth 1//g' Makefile.in
 
 echo "building toolchain for host: $HOST, arch: $ARCH, abi: $ABI"
 ./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI
