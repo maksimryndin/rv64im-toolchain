@@ -23,8 +23,8 @@ PREFIX=$WORK_DIR/.dist/$HOST
 if [[ $HOST =~ riscv32im ]]; then
   ARCH="rv32im"
   ABI="ilp32"
-elif [[ $HOST =~ riscv64im ]]; then
-  ARCH="rv64im"
+elif [[ $HOST =~ riscv64ima ]]; then
+  ARCH="rv64ima"
   ABI="lp64"
 else
   echo "Unknown host: $HOST"
