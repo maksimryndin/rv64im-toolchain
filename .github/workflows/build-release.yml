@@ -61,7 +61,6 @@ jobs:
 
       - name: Build
         run: |
-          git submodule update --init
           mkdir -p .dist
           ./build.sh ${{ matrix.host }}
 

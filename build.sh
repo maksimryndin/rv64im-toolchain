@@ -16,16 +16,20 @@ else
   exit 1
 fi
 
-pushd riscv-gnu-toolchain
+# set up the gnu toolchain
+git clone https://github.com/riscv-collab/riscv-gnu-toolchain
+cd riscv-gnu-toolchain
+sed -i '/shallow = true/d' .gitmodules
+sed -i 's/--depth 1//g' Makefile.in
 
 echo "building toolchain for host: $HOST, arch: $ARCH, abi: $ABI"
 ./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI
 make -j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)
 
-popd
+cd ..
 
-pushd .dist
+cd .dist
 
 tar cvJf $HOST.tar.xz $HOST
 
-popd
+cd ..
