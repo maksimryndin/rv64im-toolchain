@@ -40,8 +40,17 @@ fi
 # set up the gnu toolchain
 git clone https://github.com/riscv-collab/riscv-gnu-toolchain
 cd riscv-gnu-toolchain
-$SED -i '/shallow = true/d' .gitmodules
-$SED -i 's/--depth 1//g' Makefile.in
+
+# Use $SED with appropriate syntax based on whether it's BSD sed on macOS
+if [ "$SED" = "sed" ] && [ "$(uname -s)" = "Darwin" ]; then
+    # BSD sed on macOS requires an empty string after -i
+    $SED -i '' '/shallow = true/d' .gitmodules
+    $SED -i '' 's/--depth 1//g' Makefile.in
+else
+    # GNU sed syntax (works for gsed on macOS or sed on Linux)
+    $SED -i '/shallow = true/d' .gitmodules
+    $SED -i 's/--depth 1//g' Makefile.in
+fi
 
 echo "building toolchain for host: $HOST, arch: $ARCH, abi: $ABI"
 ./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI
