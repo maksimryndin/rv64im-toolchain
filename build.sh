@@ -44,8 +44,8 @@ $SED -i '/shallow = true/d' .gitmodules
 $SED -i 's/--depth 1//g' Makefile.in
 
 echo "building toolchain for host: $HOST, arch: $ARCH, abi: $ABI"
-./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI
-make -j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)
+./configure --prefix=$PREFIX --with-cmodel=medany --disable-gdb --with-arch=$ARCH --with-abi=$ABI --with-languages=c,c++,go
+make all -j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)
 
 cd ..
 
