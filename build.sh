@@ -1,6 +1,21 @@
 #!/bin/bash
 set -e
 
+if [ "$(uname -s)" = "Darwin" ]; then
+	MOUNT_POINT="/Volumes/RISCVToolchain"
+	WORK_DIR="$MOUNT_POINT/workdir"
+
+	hdiutil create -size 8g -fs "Case-sensitive APFS" -volname RISCVToolchain -type SPARSE ~/RISCVToolchain.sparseimage
+	hdiutil attach ~/RISCVToolchain.sparseimage
+
+	mkdir -p "$WORK_DIR"
+	cd "$WORK_DIR"
+else
+    WORK_DIR="$(pwd)/workdir"
+    mkdir -p "$WORK_DIR"
+    cd "$WORK_DIR"
+fi
+
 HOST=$1
 PREFIX=$PWD/.dist/$HOST
 
@@ -8,8 +23,8 @@ PREFIX=$PWD/.dist/$HOST
 if [[ $HOST =~ riscv32im ]]; then
   ARCH="rv32im"
   ABI="ilp32"
-elif [[ $HOST =~ riscv64im ]]; then
-  ARCH="rv64im"
+elif [[ $HOST =~ riscv64ima ]]; then
+  ARCH="rv64ima"
   ABI="lp64"
 else
   echo "Unknown host: $HOST"
